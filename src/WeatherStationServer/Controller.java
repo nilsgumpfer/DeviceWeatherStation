@@ -122,7 +122,7 @@ public class Controller {
 
             String aktTemp = String.valueOf(weather1.getTemperatureSrv());
             String akthumidty = String.valueOf(weather1.getAirHumiditySrv());
-            String aktrainfallamount = String.valueOf(weather1.getTemperatureSrv());
+            String aktrainfallamount = String.valueOf(weather1.getRainfallAmountSrv());
             String aktWindvelocity = String.valueOf(weather1.getWindVelocitySrv());
             String aktAirpressure = String.valueOf(weather1.getAirPressureSrv());
 
