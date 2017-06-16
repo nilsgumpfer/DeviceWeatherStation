@@ -35,7 +35,6 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="253.0" prefWidth="583.0">
                      <children>
                         <Button fx:id="btn_setairhumidity" layoutX="14.0" layoutY="33.0" mnemonicParsing="false" onAction="#BTNSetAirHumidity" text="Set Airhumidity" />
-                        <Button fx:id="btn_getInfo" layoutX="454.0" layoutY="145.0" mnemonicParsing="false" onAction="#BTNGetInfo" text="Get Infos" />
                         <Button fx:id="btn_setRainfallamount" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" onAction="#BTNSetRainfall" text="Set Rainfallamount" />
                         <Button fx:id="btn_setTemp" layoutX="427.0" layoutY="80.0" mnemonicParsing="false" onAction="#BTNSetTemp" text="Set Temperature" />
                         <Button fx:id="btn_setAirpressure" layoutX="427.0" layoutY="33.0" mnemonicParsing="false" onAction="#BTNSetAirPressure" text="Set Airpressure" />

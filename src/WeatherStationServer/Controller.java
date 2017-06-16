@@ -33,8 +33,6 @@ public class Controller {
     @FXML
     private TextArea ta_srvlog;
     @FXML
-    private Button btn_getInfo;
-    @FXML
     private Button btn_setairhumidity;
     @FXML
     private Button btn_setRainfallamount;
@@ -139,24 +137,6 @@ public class Controller {
             btn_starteServer.setDisable(false);
         }
     }
-
-    public void BTNGetInfo(ActionEvent event){
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Aktuelle Daten der Wetterstation");
-
-            String aktTemp = String.valueOf(weather1.getTemperatureSrv());
-            String akthumidty = String.valueOf(weather1.getAirHumiditySrv());
-            String aktrainfallamount = String.valueOf(weather1.getRainfallAmountSrv());
-            String aktWindvelocity = String.valueOf(weather1.getWindVelocitySrv());
-            String aktAirpressure = String.valueOf(weather1.getAirPressureSrv());
-
-            alert.setContentText("Temperatur: " + aktTemp + " °C" + "\n" + "Luftfeuchte: " + akthumidty + " %" + "\n" +"Niederschlagsmenge: " + aktrainfallamount + " l" + "\n" +"Windgeschwindigkeit: " + aktWindvelocity
-            + " km/h" +"\n" + "Luftdruck: " + aktAirpressure + " hPa");
-
-            alert.showAndWait();
-        }
 
     public void BTNSetTemp(ActionEvent event){
         TextInputDialog dialog = new TextInputDialog();
