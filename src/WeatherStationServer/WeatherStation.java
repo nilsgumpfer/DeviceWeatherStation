@@ -4,6 +4,8 @@ import WeatherStationServer.interfaces.WeatherStationClientInterface;
 import WeatherStationServer.interfaces.WeatherStationServerInterface;
 import WeatherStationServer.observer.AObservable;
 import WeatherStationServer.observer.IObserver;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -31,6 +33,13 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
     private double windvelocity = 5.0;
     private double airpressure = 938.1;
     private double temperature = 25.0;
+
+    public StringProperty airhumidty_sp = new SimpleStringProperty("60 %");
+    public StringProperty rainfallamount_sp = new SimpleStringProperty("10.0 l");
+    public StringProperty windvelocity_sp = new SimpleStringProperty("5 km/h");
+    public StringProperty airpressure_sp = new SimpleStringProperty("938.1 hPa");
+    public StringProperty temperature_sp = new SimpleStringProperty("25 °C");
+
 
     public WeatherStation() {
 
@@ -99,25 +108,30 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
     public void setWindVelocitySrv(double newWindvelocity) {
 
         windvelocity = newWindvelocity;
+        windvelocity_sp.set(String.valueOf(windvelocity) + " km/h");
     }
 
     public void setRainfallAmountSrv(double newRainfallamount) {
 
         rainfallamount = newRainfallamount;
+        rainfallamount_sp.set(String.valueOf(rainfallamount) + " l");
     }
 
     public void setAirHumiditySrv(double newAirHumidty) {
 
         airhumidity = newAirHumidty;
+        airhumidty_sp.set(String.valueOf(airhumidity) + " %");
     }
 
     public void setAirPressureSrv(double newAirPressure) {
 
         airpressure = newAirPressure;
+        airpressure_sp.set(String.valueOf(airpressure) + " hPa");
     }
 
     public void setTemperatureSrv(double newTemp) {
         temperature = newTemp;
+        temperature_sp.set(String.valueOf(temperature) + " °C");
     }
 
 

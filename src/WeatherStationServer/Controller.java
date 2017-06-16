@@ -33,8 +33,6 @@ public class Controller {
     @FXML
     private TextArea ta_srvlog;
     @FXML
-    private Label lbl_heizungtemp;
-    @FXML
     private Button btn_getInfo;
     @FXML
     private Button btn_setairhumidity;
@@ -46,6 +44,17 @@ public class Controller {
     private Button btn_setAirpressure;
     @FXML
     private Button btn_setTemp;
+
+    @FXML
+    private Label lbl_ah;
+    @FXML
+    private Label lbl_rfa;
+    @FXML
+    private Label lbl_wind;
+    @FXML
+    private Label lbl_airp;
+    @FXML
+    private Label lbl_temp;
 
     public static PrintStream ps;
 
@@ -101,6 +110,12 @@ public class Controller {
         lbl_Serverip.setText(weather1.getServerIP());
         lbl_Servername.setText(weather1.weatherstationname);
         lbl_Serverstatus.setText(weather1.serverstatus);
+
+        lbl_ah.textProperty().bind(weather1.airhumidty_sp);
+        lbl_airp.textProperty().bind(weather1.airpressure_sp);
+        lbl_rfa.textProperty().bind(weather1.rainfallamount_sp);
+        lbl_temp.textProperty().bind(weather1.temperature_sp);
+        lbl_wind.textProperty().bind(weather1.windvelocity_sp);
 
         StringBuilder sb = new StringBuilder();
         sb.append("");
