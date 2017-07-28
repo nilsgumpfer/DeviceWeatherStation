@@ -4,6 +4,11 @@ import WeatherStationServer.interfaces.WeatherStationClientInterface;
 import WeatherStationServer.interfaces.WeatherStationServerInterface;
 import WeatherStationServer.observer.AObservable;
 import WeatherStationServer.observer.IObserver;
+import de.thm.smarthome.global.beans.ActionModeBean;
+import de.thm.smarthome.global.beans.ManufacturerBean;
+import de.thm.smarthome.global.beans.MeasureBean;
+import de.thm.smarthome.global.beans.ModelVariantBean;
+import de.thm.smarthome.global.enumeration.EUnitOfMeasurement;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -28,111 +33,30 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
     public String serverstatus = null;
     public int serverport = 1099;
     public Registry rmiRegistry;
-    private double airhumidity = 60.0;
-    private double rainfallamount = 10.0;
-    private double windvelocity = 5.0;
-    private double airpressure = 938.1;
-    private double temperature = 25.0;
 
-    public StringProperty airhumidty_sp = new SimpleStringProperty("60 %");
-    public StringProperty rainfallamount_sp = new SimpleStringProperty("10.0 l");
-    public StringProperty windvelocity_sp = new SimpleStringProperty("5 km/h");
-    public StringProperty airpressure_sp = new SimpleStringProperty("938.1 hPa");
-    public StringProperty temperature_sp = new SimpleStringProperty("25 °C");
+    private MeasureBean temperature = new MeasureBean(0.00, EUnitOfMeasurement.TEMPERATURE_DEGREESCELSIUS);
+    private MeasureBean windvelocity = new MeasureBean(0.00, EUnitOfMeasurement.VELOCITY_KILOMETERSPERHOUR);
+    private MeasureBean rainfallAmount = new MeasureBean(0.00, EUnitOfMeasurement.VOLUME_LITRESPERSQUAREMETER);
+    private MeasureBean airPressure = new MeasureBean(0.00, EUnitOfMeasurement.PRESSURE_BAR);
+    private MeasureBean airHumidity = new MeasureBean(20.00, EUnitOfMeasurement.RELATION_PERCENT);
+    private ModelVariantBean modelvariant;
+    private ManufacturerBean manufacturer;
+    private ActionModeBean actionMode;
+    private String genericName;
+    private String serialNumber;
+
+    public StringProperty airhumidty_sp = new SimpleStringProperty(String.valueOf(airHumidity.getMeasure_Double())+ " " + airHumidity.getUnitOfMeasurement_String());
+    public StringProperty rainfallamount_sp = new SimpleStringProperty(String.valueOf(rainfallAmount.getMeasure_Double())+ " " + rainfallAmount.getUnitOfMeasurement_String());
+    public StringProperty windvelocity_sp = new SimpleStringProperty(String.valueOf(windvelocity.getMeasure_Double())+ " " + windvelocity.getUnitOfMeasurement_String());
+    public StringProperty airpressure_sp = new SimpleStringProperty(String.valueOf(airPressure.getMeasure_Double())+ " " + airPressure.getUnitOfMeasurement_String());
+    public StringProperty temperature_sp = new SimpleStringProperty(String.valueOf(temperature.getMeasure_Double())+ " " + temperature.getUnitOfMeasurement_String());
 
 
     public WeatherStation() {
 
     }
 
-    public double getWindVelocity(WeatherStationClientInterface c) {
 
-        return windvelocity;
-    }
-
-    public double getRainfallAmount(WeatherStationClientInterface c) {
-
-        return rainfallamount;
-    }
-
-    public double getAirHumidity(WeatherStationClientInterface c) {
-
-        return airhumidity;
-    }
-
-    public double getAirPressure(WeatherStationClientInterface c) {
-
-        return airpressure;
-    }
-
-    public double getTemperature(WeatherStationClientInterface c) {
-        return temperature;
-    }
-
-    @Override
-    public String getName(WeatherStationClientInterface c) {
-        return weatherstationname;
-    }
-
-    /*Methoden für Server*/
-
-    public double getWindVelocitySrv() {
-
-        return windvelocity;
-    }
-
-    public double getRainfallAmountSrv() {
-
-        return rainfallamount;
-    }
-
-    public double getAirHumiditySrv() {
-
-        return airhumidity;
-    }
-
-    public double getAirPressureSrv() {
-
-        return airpressure;
-    }
-
-    public double getTemperatureSrv() {
-        return temperature;
-    }
-
-    public String getNameSrv() {
-        return weatherstationname;
-    }
-
-    /*Setter Server*/
-    public void setWindVelocitySrv(double newWindvelocity) {
-
-        windvelocity = newWindvelocity;
-        windvelocity_sp.set(String.valueOf(windvelocity) + " km/h");
-    }
-
-    public void setRainfallAmountSrv(double newRainfallamount) {
-
-        rainfallamount = newRainfallamount;
-        rainfallamount_sp.set(String.valueOf(rainfallamount) + " l");
-    }
-
-    public void setAirHumiditySrv(double newAirHumidty) {
-
-        airhumidity = newAirHumidty;
-        airhumidty_sp.set(String.valueOf(airhumidity) + " %");
-    }
-
-    public void setAirPressureSrv(double newAirPressure) {
-
-        airpressure = newAirPressure;
-        airpressure_sp.set(String.valueOf(airpressure) + " hPa");
-    }
-
-    public void setTemperatureSrv(double newTemp) {
-        temperature = newTemp;
-        temperature_sp.set(String.valueOf(temperature) + " °C");
-    }
 
 
     public String startServer(String wetterstationname) throws RemoteException {
@@ -205,5 +129,60 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
             e.printStackTrace();
             return "Fehler beim Stoppen des Servers!";
         }
+    }
+
+    @Override
+    public MeasureBean getTemperature() throws RemoteException {
+        return temperature;
+    }
+
+    @Override
+    public MeasureBean getWindvelocity() throws RemoteException {
+        return windvelocity;
+    }
+
+    @Override
+    public MeasureBean getRainfallAmount() throws RemoteException {
+        return rainfallAmount;
+    }
+
+    @Override
+    public MeasureBean getAirPressure() throws RemoteException {
+        return airPressure;
+    }
+
+    @Override
+    public MeasureBean getAirHumidity() throws RemoteException {
+        return airHumidity;
+    }
+
+    @Override
+    public ModelVariantBean getModelvariant() throws RemoteException {
+        return modelvariant;
+    }
+
+    @Override
+    public ManufacturerBean getManufacturer() throws RemoteException {
+        return manufacturer;
+    }
+
+    @Override
+    public ActionModeBean getActionMode() throws RemoteException {
+        return actionMode;
+    }
+
+    @Override
+    public String getGenericName() throws RemoteException {
+        return genericName;
+    }
+
+    @Override
+    public String getSerialNumber() throws RemoteException {
+        return serialNumber;
+    }
+
+    @Override
+    public void setGenericName(String new_genericName) throws RemoteException {
+        genericName = new_genericName;
     }
 }
