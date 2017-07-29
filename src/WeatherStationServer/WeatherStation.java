@@ -29,7 +29,7 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class WeatherStation extends AObservable implements IObserver, WeatherStationServerInterface {
 
-    public String weatherstationname = null;
+    public String weatherstationname = "SmartHomeAPI";
     public String serverstatus = null;
     public int serverport = 1099;
     public Registry rmiRegistry;
@@ -59,7 +59,7 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
 
 
 
-    public String startServer(String wetterstationname) throws RemoteException {
+    public String startServer() throws RemoteException { //TODO: RemoteExceotion fangen (bei allen Geräten!)
         WeatherStationServerInterface stub = (WeatherStationServerInterface) UnicastRemoteObject.exportObject(this, 0);
         rmiRegistry = LocateRegistry.createRegistry(serverport);
         try {
@@ -72,8 +72,7 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
             RemoteServer.setLog(System.out);
             //System.out.println(srvlog.toString());
             /*Bindet den Server an die folgende Adresse*/
-            Naming.rebind("//127.0.0.1/" + wetterstationname, this);
-            this.weatherstationname = wetterstationname;
+            Naming.rebind("//127.0.0.1/" + weatherstationname, this);
             this.serverstatus = "Gestartet";
             return "Server ist gestartet!";
 

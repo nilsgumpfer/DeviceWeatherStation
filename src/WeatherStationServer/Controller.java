@@ -61,7 +61,7 @@ public class Controller {
 
 
     public void BTNServerStarten(ActionEvent event) throws IOException {
-        TextInputDialog dialog = new TextInputDialog();
+        /*TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Name des Shutter definieren");
         dialog.setHeaderText("Shutter anlegen");
         dialog.setContentText("Bitte diesem Shutter einen Namen geben:");
@@ -76,7 +76,7 @@ public class Controller {
             else{
                 return;
             }
-        }
+        }*/
 
         if(weather1 == null){
             weather1 = new WeatherStation();
@@ -104,7 +104,7 @@ public class Controller {
 
         /*Server wird gestartet*/
 
-        lbl_srvmsg.setText(weather1.startServer(lbl_Servername.getText()));
+        lbl_srvmsg.setText(weather1.startServer());
         lbl_Serverip.setText(weather1.getServerIP());
         lbl_Servername.setText(weather1.weatherstationname);
         lbl_Serverstatus.setText(weather1.serverstatus);
