@@ -1,9 +1,8 @@
 package WeatherStationServer;
 
-import WeatherStationServer.interfaces.WeatherStationClientInterface;
 import WeatherStationServer.interfaces.WeatherStationServerInterface;
-import WeatherStationServer.observer.AObservable;
-import WeatherStationServer.observer.IObserver;
+import de.thm.smarthome.global.observer.AObservable;
+import de.thm.smarthome.global.observer.IObserver;
 import de.thm.smarthome.global.beans.ActionModeBean;
 import de.thm.smarthome.global.beans.ManufacturerBean;
 import de.thm.smarthome.global.beans.MeasureBean;
@@ -33,6 +32,8 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
     public String serverstatus = null;
     public int serverport = 1099;
     public Registry rmiRegistry;
+    public String serverIP;
+    private WeatherStationServerInterface stub = null;
 
     private MeasureBean temperature = new MeasureBean(0.00, EUnitOfMeasurement.TEMPERATURE_DEGREESCELSIUS);
     private MeasureBean windvelocity = new MeasureBean(0.00, EUnitOfMeasurement.VELOCITY_KILOMETERSPERHOUR);
@@ -60,7 +61,11 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
 
 
     public String startServer() throws RemoteException { //TODO: RemoteExceotion fangen (bei allen Geräten!)
-        WeatherStationServerInterface stub = (WeatherStationServerInterface) UnicastRemoteObject.exportObject(this, 0);
+        serverIP = getServerIP();
+        System.setProperty("java.rmi.server.hostname", serverIP);
+        if(stub == null) {
+            stub = (WeatherStationServerInterface) UnicastRemoteObject.exportObject(this, 0);
+        }
         rmiRegistry = LocateRegistry.createRegistry(serverport);
         try {
             /*if (System.getSecurityManager() == null) {
@@ -78,14 +83,15 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
 
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+
+            System.out.print(e.toString());
             return "Fehler beim Starten des Servers!";
         }
     }
 
 
     @Override
-    public void update(AObservable o, Object change) {
+    public void update(Object o, Object change) {
 
     }
 
@@ -98,7 +104,7 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
 
         } catch (UnknownHostException e) {
 
-            e.printStackTrace();
+            System.out.print(e.toString());
             return null;
         }
     }
@@ -118,14 +124,14 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
 
         } catch (NoSuchObjectException e)
         {
-            e.printStackTrace();
+            System.out.print(e.toString());
             return "Fehler beim Stoppen des Servers!";
         } catch (NotBoundException e)
         {
-            e.printStackTrace();
+            System.out.print(e.toString());
             return "Fehler beim Stoppen des Servers!";
         } catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.print(e.toString());
             return "Fehler beim Stoppen des Servers!";
         }
     }

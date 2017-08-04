@@ -81,9 +81,9 @@ public class Controller {
         if(weather1 == null){
             weather1 = new WeatherStation();
         }
-        else{
+        /*else{
             weather1 = new WeatherStation();
-        }
+        }*/
 
         ps = new PrintStream(new OutputStream() {
 

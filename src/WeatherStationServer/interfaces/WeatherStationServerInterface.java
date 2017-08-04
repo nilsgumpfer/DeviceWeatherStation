@@ -1,6 +1,5 @@
 package WeatherStationServer.interfaces;
 
-import WeatherStationServer.observer.AObservable;
 import de.thm.smarthome.global.beans.ActionModeBean;
 import de.thm.smarthome.global.beans.ManufacturerBean;
 import de.thm.smarthome.global.beans.MeasureBean;
@@ -25,6 +24,7 @@ public interface WeatherStationServerInterface extends Remote {
     String getGenericName() throws RemoteException;
     String getSerialNumber() throws RemoteException;
     void setGenericName(String new_genericName) throws RemoteException;
+    void attach(Object observer) throws RemoteException;
 
     /*double getWindVelocity(WeatherStationClientInterface c) throws RemoteException;
 
