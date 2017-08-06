@@ -8,6 +8,7 @@ import de.thm.smarthome.global.beans.ManufacturerBean;
 import de.thm.smarthome.global.beans.MeasureBean;
 import de.thm.smarthome.global.beans.ModelVariantBean;
 import de.thm.smarthome.global.enumeration.EUnitOfMeasurement;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -136,6 +137,9 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
         }
     }
 
+    /*Getter*/
+
+
     @Override
     public MeasureBean getTemperature() throws RemoteException {
         return temperature;
@@ -186,8 +190,60 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
         return serialNumber;
     }
 
-    @Override
+    /*Setter*/
+
+
     public void setGenericName(String new_genericName) throws RemoteException {
         genericName = new_genericName;
+    }
+
+    public void setTemperature(MeasureBean newTemp) {
+        temperature = newTemp;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                temperature_sp.set(String.valueOf(newTemp.getMeasure_Double()) + " " + newTemp.getUnitOfMeasurement_String());
+            }
+        });
+    }
+
+    public void setWindvelocity(MeasureBean newWindvelocity) {
+        windvelocity = newWindvelocity;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                windvelocity_sp.set(String.valueOf(newWindvelocity.getMeasure_Double()) + " " + newWindvelocity.getUnitOfMeasurement_String());
+            }
+        });
+    }
+
+    public void setRainfallAmount(MeasureBean newRainfallamount) {
+        rainfallAmount = newRainfallamount;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                rainfallamount_sp.set(String.valueOf(newRainfallamount.getMeasure_Double()) + " " + newRainfallamount.getUnitOfMeasurement_String());
+            }
+        });
+    }
+
+    public void setAirPressure(MeasureBean newAirpressure) {
+        airPressure = newAirpressure;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                airpressure_sp.set(String.valueOf(newAirpressure.getMeasure_Double()) + " " + newAirpressure.getUnitOfMeasurement_String());
+            }
+        });
+    }
+
+    public void setAirHumidity(MeasureBean newAirhumidity) {
+        airHumidity = newAirhumidity;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                airhumidty_sp.set(String.valueOf(newAirhumidity.getMeasure_Double()) + " " + newAirhumidity.getUnitOfMeasurement_String());
+            }
+        });
     }
 }

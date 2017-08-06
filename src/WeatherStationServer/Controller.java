@@ -1,5 +1,6 @@
 package WeatherStationServer;
 
+import de.thm.smarthome.global.beans.MeasureBean;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -135,6 +136,87 @@ public class Controller {
         if (lbl_Serverstatus.getText() == "Gestoppt"){
             btn_stoppeServer.setDisable(true);
             btn_starteServer.setDisable(false);
+        }
+    }
+
+    public void BTNSetTemp(ActionEvent event) throws RemoteException{
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Gewünschte Temperatur einstellen");
+        dialog.setHeaderText("Gewünschte Temperatur der Wetterstation einstellen");
+        dialog.setContentText("Bitte gewünschte Temperatur der Wetterstation einstellen:");
+        Optional<String> result = dialog.showAndWait();
+
+        if(result.isPresent() == true && !result.get().equals("")) {
+            Double newTemp = Double.parseDouble(result.get());
+            System.out.println(newTemp);
+            weather1.setTemperature(new MeasureBean(newTemp, weather1.getTemperature().getUnitOfMeasurement_Enum()));
+        }
+        else{
+            return;
+        }
+    }
+
+    public void BTNSetAirPressure(ActionEvent event) throws RemoteException{
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Gewünschten Luftdruck einstellen");
+        dialog.setHeaderText("Gewünschte Luftdruck der Wetterstation einstellen");
+        dialog.setContentText("Bitte gewünschte Luftdruck der Wetterstation einstellen:");
+        Optional<String> result = dialog.showAndWait();
+
+        if(result.isPresent() == true && !result.get().equals("")) {
+            Double newAirpressure = Double.parseDouble(result.get());
+            weather1.setAirPressure(new MeasureBean(newAirpressure, weather1.getAirPressure().getUnitOfMeasurement_Enum()));
+        }
+        else{
+            return;
+        }
+    }
+
+    public void BTNSetAirHumidty(ActionEvent event) throws RemoteException{
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Gewünschten Luftfeuchte einstellen");
+        dialog.setHeaderText("Gewünschte Luftfeuchte der Wetterstation einstellen");
+        dialog.setContentText("Bitte gewünschte Luftfeuchte der Wetterstation einstellen:");
+        Optional<String> result = dialog.showAndWait();
+
+        if(result.isPresent() == true && !result.get().equals("")) {
+            Double newAirhumidty = Double.parseDouble(result.get());
+            weather1.setAirHumidity(new MeasureBean(newAirhumidty, weather1.getAirHumidity().getUnitOfMeasurement_Enum()));
+        }
+        else{
+            return;
+        }
+    }
+
+    public void BTNSetRain(ActionEvent event) throws RemoteException{
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Gewünschten Regenmenge einstellen");
+        dialog.setHeaderText("Gewünschte Regenmenge der Wetterstation einstellen");
+        dialog.setContentText("Bitte gewünschte Regenmenge der Wetterstation einstellen:");
+        Optional<String> result = dialog.showAndWait();
+
+        if(result.isPresent() == true && !result.get().equals("")) {
+            Double newRainfallamount = Double.parseDouble(result.get());
+            weather1.setRainfallAmount(new MeasureBean(newRainfallamount, weather1.getRainfallAmount().getUnitOfMeasurement_Enum()));
+        }
+        else{
+            return;
+        }
+    }
+
+    public void BTNSetWind(ActionEvent event) throws RemoteException{
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Gewünschten Windgeschwindigkeit einstellen");
+        dialog.setHeaderText("Gewünschte Windgeschwindigkeit der Wetterstation einstellen");
+        dialog.setContentText("Bitte gewünschte Windgeschwindigkeit der Wetterstation einstellen:");
+        Optional<String> result = dialog.showAndWait();
+
+        if(result.isPresent() == true && !result.get().equals("")) {
+            Double newWindvelocity = Double.parseDouble(result.get());
+            weather1.setWindvelocity(new MeasureBean(newWindvelocity, weather1.getWindvelocity().getUnitOfMeasurement_Enum()));
+        }
+        else{
+            return;
         }
     }
 }
