@@ -205,6 +205,7 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
                 temperature_sp.set(String.valueOf(newTemp.getMeasure_Double()) + " " + newTemp.getUnitOfMeasurement_String());
             }
         });
+        notifyObservers(temperature);
     }
 
     public void setWindvelocity(MeasureBean newWindvelocity) {
@@ -215,6 +216,7 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
                 windvelocity_sp.set(String.valueOf(newWindvelocity.getMeasure_Double()) + " " + newWindvelocity.getUnitOfMeasurement_String());
             }
         });
+        notifyObservers(windvelocity);
     }
 
     public void setRainfallAmount(MeasureBean newRainfallamount) {
@@ -225,6 +227,7 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
                 rainfallamount_sp.set(String.valueOf(newRainfallamount.getMeasure_Double()) + " " + newRainfallamount.getUnitOfMeasurement_String());
             }
         });
+        notifyObservers(rainfallAmount);
     }
 
     public void setAirPressure(MeasureBean newAirpressure) {
@@ -235,6 +238,7 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
                 airpressure_sp.set(String.valueOf(newAirpressure.getMeasure_Double()) + " " + newAirpressure.getUnitOfMeasurement_String());
             }
         });
+        notifyObservers(airPressure);
     }
 
     public void setAirHumidity(MeasureBean newAirhumidity) {
@@ -245,5 +249,6 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
                 airhumidty_sp.set(String.valueOf(newAirhumidity.getMeasure_Double()) + " " + newAirhumidity.getUnitOfMeasurement_String());
             }
         });
+        notifyObservers(airHumidity);
     }
 }
