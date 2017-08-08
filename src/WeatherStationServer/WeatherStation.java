@@ -69,14 +69,10 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
         }
         rmiRegistry = LocateRegistry.createRegistry(serverport);
         try {
-            /*if (System.getSecurityManager() == null) {
-                System.setProperty("java.security.policy", "file:C:\\Users\\Tim\\IdeaProjects\\HeizungServer\\out\\production\\HeizungServer\\HeizungServer\\server.policy");
-                System.setSecurityManager(new SecurityManager());
 
-            }*/
             /*Aktiviert und definiert das Logging des Servers*/
             RemoteServer.setLog(System.out);
-            //System.out.println(srvlog.toString());
+
             /*Bindet den Server an die folgende Adresse*/
             Naming.rebind("//127.0.0.1/" + weatherstationname, this);
             this.serverstatus = "Gestartet";
@@ -113,12 +109,8 @@ public class WeatherStation extends AObservable implements IObserver, WeatherSta
     public String stopServer(){
         try {
 
-            //Registry rmiRegistry = LocateRegistry.getRegistry("127.0.0.1", serverport);
-            //HeizungServerInterface myService = (HeizungServerInterface) rmiRegistry.lookup(heizungname);
-
             rmiRegistry.unbind(weatherstationname);
 
-            //UnicastRemoteObject.unexportObject(myService, true);
             UnicastRemoteObject.unexportObject(rmiRegistry, true);
             this.serverstatus = "Gestoppt";
             return "Server ist gestoppt!";

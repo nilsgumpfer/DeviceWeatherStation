@@ -9,7 +9,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * Created by Tim on 07.04.2017.
+ * Created on 07.04.2017.
  */
 public interface WeatherStationServerInterface extends Remote {
 
@@ -26,17 +26,4 @@ public interface WeatherStationServerInterface extends Remote {
     void setGenericName(String new_genericName) throws RemoteException;
     void attach(Object observer) throws RemoteException;
 
-    /*double getWindVelocity(WeatherStationClientInterface c) throws RemoteException;
-
-    public double getRainfallAmount(WeatherStationClientInterface c) throws RemoteException;
-
-    public double getAirHumidity(WeatherStationClientInterface c) throws RemoteException;
-
-    public double getAirPressure(WeatherStationClientInterface c) throws RemoteException;
-
-    public double getTemperature(WeatherStationClientInterface c) throws RemoteException;
-
-    public String getName(WeatherStationClientInterface c) throws RemoteException;
-
-    //public void update(AObservable o, Object change, WeatherStationClientInterface c);*/
 }
